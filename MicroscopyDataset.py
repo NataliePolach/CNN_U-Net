@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
+
 # %%
 # Loader for data
 import os
 import numpy as np
-#from PIL import Image
+from PIL import Image
 from torch.utils.data import Dataset
 
 
@@ -20,6 +22,7 @@ class MicroscopyDataset (Dataset):
         #list of all files in folder
         self.transform = transform
         self.images = os.listdir(image_dir)
+        self.images = [ f for f in self.images if os.path.isfile(os.path.join(self.image_dir, f))]
     
     def __len__(self):
         print("Length: -here-")
@@ -45,3 +48,7 @@ class MicroscopyDataset (Dataset):
         return image, mask
         
 
+if __name__ == "__main__":
+    mds = MicroscopyDataset("train_img", "train_mask")
+    for i in range(0, len(mds)):
+        print(mds[i])

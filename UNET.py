@@ -1,13 +1,13 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
-# %%
 # Unet model implementation
 import torch
 import torch.nn as nn
 import torchvision.transforms.functional as TF
 from matplotlib import pyplot as plt
 from PIL import Image
-import os
+import numpy as np
+import sys, os
 
 class DoubleConv(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -74,7 +74,6 @@ class UNET(nn.Module):
         return self.final_conv(x)
     
 #Test code with generated data for architecture testing
-"""
 def test_a():
     x = torch.randn((3, 1, 256, 256))    
     print(x.dtype)
@@ -87,20 +86,19 @@ def test_a():
     print(preds.shape)
     print(x.shape)
     assert preds.shape == x.shape 
-"""
+
 #Test code with preprocessed data for architecture testing
-"""
 def test_b():
-    PATH_TO_IMAGES = 'C:\\Users\\Dell\\Desktop\\skola\\rocnik_3\\bakalarka\\implementace\\github_implementace\\CNN_UNet\\train_img\\train2.txt'
-    obr = np.loadtxt(PATH_TO_IMAGES, dtype=np.float)
-    obr = obr.reshape (1, 1, 256, 256).astype('float32')
+    PATH_TO_IMAGES = 'train_img/test2.tiff'
+    obr = np.array(Image.open(PATH_TO_IMAGES).convert("RGB"))
+    obr = obr.reshape(1, 3, 256, 256).astype('float32')
     obr = torch.from_numpy(obr)
     print("testb dtype::"+str(obr.dtype))
     print("testb size:"+str(obr.size))
     print("testtb ndim:"+str(obr.ndim))
     print("testtb shape:"+str(obr.shape))      
 
-    model = UNET(in_channels=1, out_channels=1)
+    model = UNET(in_channels=3, out_channels=1)
     preds = model(obr)
 
     yz = preds.detach().numpy()
@@ -114,7 +112,9 @@ def test_b():
 
     
 if __name__ == "__main__":
-    test_a()
-    test_b()
-"""
-
+    if sys.argv[1] == "a":
+        test_a()
+    elif sys.argv[1] == "b":
+        test_b()
+    else:
+        raise Exception("Unknown test")

@@ -5,6 +5,8 @@ import torchvision
 from torch.utils.data import DataLoader
 import matplotlib.pyplot
 
+import MicroscopyDataset
+
 def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
     print("=> Saving checkpoint")
     torch.save(state, filename)
@@ -24,7 +26,7 @@ def get_loaders(
     num_workers=4,
     pin_memory=True):
     
-    train_ds = MicroscopyDataset(
+    train_ds = MicroscopyDataset.MicroscopyDataset(
         image_dir=train_dir,
         mask_dir=train_maskdir,
     )
@@ -37,7 +39,7 @@ def get_loaders(
         shuffle=True,
     )
 
-    val_ds = MicroscopyDataset(
+    val_ds = MicroscopyDataset.MicroscopyDataset(
         image_dir=val_dir,
         mask_dir=val_maskdir,
     )

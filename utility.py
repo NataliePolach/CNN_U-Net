@@ -4,6 +4,7 @@ import torch
 import torchvision
 from torch.utils.data import DataLoader
 import matplotlib.pyplot
+import os
 
 import MicroscopyDataset
 
@@ -85,6 +86,7 @@ def save_predictions_as_imgs(
     loader, model, folder="saved_images/", device="cuda"
 ):
     model.eval()
+    os.makedirs(folder, exist_ok=True)
     for idx, (x, y) in enumerate(loader):
         x = x.to(device=device)
         with torch.no_grad():

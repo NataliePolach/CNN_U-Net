@@ -89,16 +89,16 @@ def test_a():
 
 #Test code with preprocessed data for architecture testing
 def test_b():
-    PATH_TO_IMAGES = 'train_img/test2.tiff'
-    obr = np.array(Image.open(PATH_TO_IMAGES).convert("RGB"))
-    obr = obr.reshape(1, 3, 256, 256).astype('float32')
+    PATH_TO_IMAGES = 'train_img/train2.tiff'
+    obr = np.array(Image.open(PATH_TO_IMAGES).convert("L"))
+    obr = obr.reshape(1, 1, 256, 256).astype('float32')
     obr = torch.from_numpy(obr)
     print("testb dtype::"+str(obr.dtype))
     print("testb size:"+str(obr.size))
     print("testtb ndim:"+str(obr.ndim))
     print("testtb shape:"+str(obr.shape))      
 
-    model = UNET(in_channels=3, out_channels=1)
+    model = UNET(in_channel=1, out_channels=1)
     preds = model(obr)
 
     yz = preds.detach().numpy()

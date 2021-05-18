@@ -67,7 +67,10 @@ def main():
     )
 
     model = UNET.UNET(in_channels=1, out_channels=1).to(DEVICE)
-    loss_fn = nn.BCEWithLogitsLoss()
+    #loss_fn = nn.BCEWithLogitsLoss()
+    loss_fn = nn.MSELoss()
+    #loss_fn = nn.BCE()
+    #loss_fn = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
     train_loader, val_loader = utility.get_loaders(

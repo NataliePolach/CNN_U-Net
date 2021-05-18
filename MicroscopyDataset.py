@@ -13,7 +13,6 @@ class MicroscopyDataset (Dataset):
     """Loading data fuction"""
     
     def __init__(self, image_dir, mask_dir, transform=None):
-        print("Debug: -here-")
         
         #print("Path to image:" + str(image_dir))
         #print("Path to mask:" + str(mask_dir))
@@ -25,13 +24,11 @@ class MicroscopyDataset (Dataset):
         self.images = [ f for f in self.images if os.path.isfile(os.path.join(self.image_dir, f))]
     
     def __len__(self):
-        print("Length: -here-")
         
         #Length of the dataset
         return len(self.images)
     
     def __getitem__(self,idx):
-        print("Get: -here-")
         
         #Path for image and mask
         image_path = os.path.join(self.image_dir, self.images[idx])

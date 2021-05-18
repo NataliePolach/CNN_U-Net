@@ -66,7 +66,7 @@ def main():
         ],
     )
 
-    model = UNET.UNET(in_channels=3, out_channels=1).to(DEVICE)
+    model = UNET.UNET(in_channels=1, out_channels=1).to(DEVICE)
     loss_fn = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 

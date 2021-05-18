@@ -40,9 +40,9 @@ class MicroscopyDataset (Dataset):
         print(str(image_path))
         print(str(mask_path))
         
-        image = np.array(Image.open(image_path).convert("RGB"))
+        image = np.array(Image.open(image_path).convert("L"))
         mask = np.array(Image.open(mask_path).convert("L"), dtype=np.float32)
-        image = image.reshape(3, 256, 256).astype('float32') 
+        image = image.reshape(1, 256, 256).astype('float32') 
         mask = mask.reshape(1, 256, 256).astype('float32')
         mask[mask == 255.0] = 1.0
         return image, mask
